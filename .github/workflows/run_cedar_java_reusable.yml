@@ -31,12 +31,12 @@ jobs:
       - name: Checkout Cedar Java
         uses: actions/checkout@v4
         with:
-          repository: cedar-policy/cedar-java
+          repository: muditchaudhary/cedar-java
           ref: ${{ inputs.cedar_java_ref }}
       - name: Checkout cedar-policy
         uses: actions/checkout@v4
         with:
-          repository: cedar-policy/cedar
+          repository: muditchaudhary/cedar
           ref: ${{ inputs.cedar_policy_ref }}
           path: ./cedar
       - name: Prepare Rust Build
