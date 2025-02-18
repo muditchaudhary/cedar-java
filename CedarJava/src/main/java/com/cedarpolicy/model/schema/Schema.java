@@ -181,7 +181,7 @@ public final class Schema {
      * @throws InternalException if parsing fails.
      * @throws NullPointerException if the input text is null
      */
-    public List<EntityUID> actions() throws InternalException, NullPointerException {
+    public Iterable<EntityUID> actions() throws InternalException, NullPointerException {
         if (type == JsonOrCedar.Json) {
             return getActionsJsonJni(schemaJson.get().toString());
         } else {
@@ -195,7 +195,7 @@ public final class Schema {
      * @throws InternalException if parsing fails.
      * @throws NullPointerException if the input text is null
      */
-    public List<EntityUID> actionGroups() throws InternalException, NullPointerException {
+    public Iterable<EntityUID> actionGroups() throws InternalException, NullPointerException {
         if (type == JsonOrCedar.Json) {
             return getActionGroupsJsonJni(schemaJson.get().toString());
         } else {
