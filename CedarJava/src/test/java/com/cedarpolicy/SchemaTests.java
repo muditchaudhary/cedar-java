@@ -18,7 +18,6 @@ package com.cedarpolicy;
 
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.cedarpolicy.model.schema.Schema;
 import com.cedarpolicy.model.schema.Schema.JsonOrCedar;

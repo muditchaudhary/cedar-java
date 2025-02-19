@@ -118,7 +118,7 @@ public final class Schema {
             return getSchemaPrincipalsJni(schemaText.get());
         }
     }
-    
+
     /**
      * Get the Resources defined by the Schema
      * @return the Resources defined by the Schema

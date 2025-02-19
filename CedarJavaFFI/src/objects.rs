@@ -305,6 +305,7 @@ impl<'a> AsRef<JObject<'a>> for JEntityId<'a> {
 
 /// Typed wrapper for Entity UIDs
 /// (com.cedarpolicy.value.EntityUID)
+#[repr(transparent)]
 pub struct JEntityUID<'a> {
     obj: JObject<'a>,
 }
