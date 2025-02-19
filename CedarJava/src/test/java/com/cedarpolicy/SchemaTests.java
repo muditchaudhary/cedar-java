@@ -128,7 +128,7 @@ public class SchemaTests {
                 """);
 
         Iterable<EntityTypeName> principalsIterable = assertDoesNotThrow(() -> {
-            return schema.principals();
+            return schema.getPrincipals();
         });
 
         ArrayList<EntityTypeName> principals = new ArrayList();
@@ -140,7 +140,7 @@ public class SchemaTests {
 
         // verify resources
         Iterable<EntityTypeName> resourcesIterable = assertDoesNotThrow(() -> {
-            return schema.resources();
+            return schema.getResources();
         });
 
         ArrayList<EntityTypeName> resources = new ArrayList();
@@ -154,7 +154,7 @@ public class SchemaTests {
         EntityTypeName actionType = EntityTypeName.parse("Action").get();
         EntityUID action = new EntityUID(actionType, "view");
         Iterable<EntityTypeName> principalsForActionIterable = assertDoesNotThrow(() -> {
-            return schema.principalsForAction(action);
+            return schema.getPrincipalsForAction(action);
         });
 
         ArrayList<EntityTypeName> principalsForAction = new ArrayList();
@@ -166,7 +166,7 @@ public class SchemaTests {
 
         // verify resources for the "view" action
         Iterable<EntityTypeName> resourcesForActionIterable = assertDoesNotThrow(() -> {
-            return schema.resourcesForAction(action);
+            return schema.getResourcesForAction(action);
         });
 
         ArrayList<EntityTypeName> resourcesForAction = new ArrayList();
@@ -178,7 +178,7 @@ public class SchemaTests {
 
         // verify the entity types
         Iterable<EntityTypeName> entityTypesIterable = assertDoesNotThrow(() -> {
-            return schema.entityTypes();
+            return schema.getEntityTypes();
         });
 
         ArrayList<EntityTypeName> entityTypes = new ArrayList();
@@ -212,7 +212,7 @@ public class SchemaTests {
                 """);
 
             Iterable<EntityTypeName> principalsIterable = assertDoesNotThrow(() -> {
-                return multiPrincipalSchema.principals();
+                return multiPrincipalSchema.getPrincipals();
             });
 
             ArrayList<EntityTypeName> principals = new ArrayList();
@@ -225,7 +225,7 @@ public class SchemaTests {
             assertEquals(1, Collections.frequency(principals, expectedPrincipal2));
 
             Iterable<EntityTypeName> resourcesIterable = assertDoesNotThrow(() -> {
-                return multiPrincipalSchema.resources();
+                return multiPrincipalSchema.getResources();
             });
 
             ArrayList<EntityTypeName> resources = new ArrayList();
@@ -241,7 +241,7 @@ public class SchemaTests {
             EntityTypeName actionType = EntityTypeName.parse("Action").get();
             EntityUID action = new EntityUID(actionType, "view");
             Iterable<EntityTypeName> principalsForActionIterable = assertDoesNotThrow(() -> {
-                return multiPrincipalSchema.principalsForAction(action);
+                return multiPrincipalSchema.getPrincipalsForAction(action);
             });
 
             ArrayList<EntityTypeName> principalsForAction = new ArrayList();
@@ -255,7 +255,7 @@ public class SchemaTests {
 
             // verify resources for the "view" action
             Iterable<EntityTypeName> resourcesForActionIterable = assertDoesNotThrow(() -> {
-                return multiPrincipalSchema.resourcesForAction(action);
+                return multiPrincipalSchema.getResourcesForAction(action);
             });
 
             ArrayList<EntityTypeName> resourcesForAction = new ArrayList();
@@ -269,7 +269,7 @@ public class SchemaTests {
 
             // verify the entity types
             Iterable<EntityTypeName> entityTypesIterable = assertDoesNotThrow(() -> {
-                return multiPrincipalSchema.entityTypes();
+                return multiPrincipalSchema.getEntityTypes();
             });
 
             ArrayList<EntityTypeName> entityTypes = new ArrayList();
@@ -328,7 +328,7 @@ public class SchemaTests {
 
             // verify principals
             Iterable<EntityTypeName> principalsIterable = assertDoesNotThrow(() -> {
-                return schema.principals();
+                return schema.getPrincipals();
             });
 
             ArrayList<EntityTypeName> principals = new ArrayList();
@@ -340,7 +340,7 @@ public class SchemaTests {
 
             // verify resources
             Iterable<EntityTypeName> resourcesIterable = assertDoesNotThrow(() -> {
-                return schema.resources();
+                return schema.getResources();
             });
 
             ArrayList<EntityTypeName> resources = new ArrayList();
@@ -354,7 +354,7 @@ public class SchemaTests {
             EntityTypeName actionType = EntityTypeName.parse("Action").get();
             EntityUID action = new EntityUID(actionType, "view");
             Iterable<EntityTypeName> principalsForActionIterable = assertDoesNotThrow(() -> {
-                return schema.principalsForAction(action);
+                return schema.getPrincipalsForAction(action);
             });
 
             ArrayList<EntityTypeName> principalsForAction = new ArrayList();
@@ -366,7 +366,7 @@ public class SchemaTests {
 
             // verify resources for the "view" action
             Iterable<EntityTypeName> resourcesForActionIterable = assertDoesNotThrow(() -> {
-                return schema.resourcesForAction(action);
+                return schema.getResourcesForAction(action);
             });
 
             ArrayList<EntityTypeName> resourcesForAction = new ArrayList();
@@ -378,7 +378,7 @@ public class SchemaTests {
 
             // verify the entity types
             Iterable<EntityTypeName> entityTypesIterable = assertDoesNotThrow(() -> {
-                return schema.entityTypes();
+                return schema.getEntityTypes();
             });
 
             ArrayList<EntityTypeName> entityTypes = new ArrayList();
@@ -451,7 +451,7 @@ public class SchemaTests {
         });
 
         Iterable<EntityTypeName> principalsIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.principals();
+            return multiPrincipalSchema.getPrincipals();
         });
 
         ArrayList<EntityTypeName> principals = new ArrayList();
@@ -464,7 +464,7 @@ public class SchemaTests {
         assertEquals(1, Collections.frequency(principals, expectedPrincipal2));
 
         Iterable<EntityTypeName> resourcesIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.resources();
+            return multiPrincipalSchema.getResources();
         });
 
         ArrayList<EntityTypeName> resources = new ArrayList();
@@ -480,7 +480,7 @@ public class SchemaTests {
         EntityTypeName actionType = EntityTypeName.parse("Action").get();
         EntityUID action = new EntityUID(actionType, "view");
         Iterable<EntityTypeName> principalsForActionIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.principalsForAction(action);
+            return multiPrincipalSchema.getPrincipalsForAction(action);
         });
 
         ArrayList<EntityTypeName> principalsForAction = new ArrayList();
@@ -494,7 +494,7 @@ public class SchemaTests {
 
         // verify resources for the "view" action
         Iterable<EntityTypeName> resourcesForActionIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.resourcesForAction(action);
+            return multiPrincipalSchema.getResourcesForAction(action);
         });
 
         ArrayList<EntityTypeName> resourcesForAction = new ArrayList();
@@ -508,7 +508,7 @@ public class SchemaTests {
 
         // verify the entity types
         Iterable<EntityTypeName> entityTypesIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.entityTypes();
+            return multiPrincipalSchema.getEntityTypes();
         });
 
         ArrayList<EntityTypeName> entityTypes = new ArrayList();
@@ -542,7 +542,7 @@ public class SchemaTests {
 
         // verify the actions
         Iterable<EntityUID> actionsIterable = assertDoesNotThrow(() -> {
-            return schema.actions();
+            return schema.getActions();
         });
 
         ArrayList<EntityUID> actions = new ArrayList();
@@ -558,7 +558,7 @@ public class SchemaTests {
 
         // verify the action groups
         Iterable<EntityUID> actionGroupsIterable = assertDoesNotThrow(() -> {
-            return schema.actionGroups();
+            return schema.getActionGroups();
         });
 
         ArrayList<EntityUID> actionGroups = new ArrayList();
@@ -592,7 +592,7 @@ public class SchemaTests {
 
         // verify the actions
         Iterable<EntityUID> actionsIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.actions();
+            return multiPrincipalSchema.getActions();
         });
 
         ArrayList<EntityUID> actions = new ArrayList();
@@ -612,7 +612,7 @@ public class SchemaTests {
 
         // verify the action groups
         Iterable<EntityUID> actionGroupsIterable = assertDoesNotThrow(() -> {
-            return multiPrincipalSchema.actionGroups();
+            return multiPrincipalSchema.getActionGroups();
         });
 
         ArrayList<EntityUID> actionGroups = new ArrayList();
@@ -671,7 +671,7 @@ public class SchemaTests {
 
         // verify the actions
         Iterable<EntityUID> actionsIterable = assertDoesNotThrow(() -> {
-            return schema.actions();
+            return schema.getActions();
         });
 
         ArrayList<EntityUID> actions = new ArrayList();
@@ -687,7 +687,7 @@ public class SchemaTests {
 
         // verify the action groups
         Iterable<EntityUID> actionGroupsIterable = assertDoesNotThrow(() -> {
-            return schema.actionGroups();
+            return schema.getActionGroups();
         });
 
         ArrayList<EntityUID> actionGroups = new ArrayList();
@@ -771,7 +771,7 @@ public class SchemaTests {
 
         // verify the actions
         Iterable<EntityUID> actionsIterable = assertDoesNotThrow(() -> {
-            return multiActionSchema.actions();
+            return multiActionSchema.getActions();
         });
 
         ArrayList<EntityUID> actions = new ArrayList();
@@ -791,7 +791,7 @@ public class SchemaTests {
 
         // verify the action groups
         Iterable<EntityUID> actionGroupsIterable = assertDoesNotThrow(() -> {
-            return multiActionSchema.actionGroups();
+            return multiActionSchema.getActionGroups();
         });
 
         ArrayList<EntityUID> actionGroups = new ArrayList();
