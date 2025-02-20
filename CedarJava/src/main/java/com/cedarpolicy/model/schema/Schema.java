@@ -212,6 +212,23 @@ public final class Schema {
     }
 
     /**
+     * Get the ancestors (parent entity types) for a specific entity type defined by the Schema
+     *
+     * @param entityTypeName The entity type name to get ancestors for
+     * @return The ancestors (parent entity types) for the specified entity type
+     * @throws InternalException    if parsing fails
+     * @throws NullPointerException if the entity type name is null
+     */
+    public Iterable<EntityTypeName> getAncestors(EntityTypeName entityTypeName)
+            throws InternalException, NullPointerException {
+        if (type == JsonOrCedar.Json) {
+            return getAncestorsJsonJni(schemaJson.get().toString(), entityTypeName);
+        } else {
+            return getAncestorsJni(schemaText.get(), entityTypeName);
+        }
+    }
+
+    /**
      * Try to parse a string representing a JSON or Cedar schema. If parsing succeeds, return a `Schema`, otherwise
      * raise an exception.
      *
@@ -290,5 +307,11 @@ public final class Schema {
             throws InternalException, NullPointerException;
 
     private static native List<EntityUID> getActionGroupsJsonJni(String schemaText)
+            throws InternalException, NullPointerException;
+
+    private static native List<EntityTypeName> getAncestorsJni(String schemaText, EntityTypeName entityTypeName)
+            throws InternalException, NullPointerException;
+
+    private static native List<EntityTypeName> getAncestorsJsonJni(String schemaText, EntityTypeName entityTypeName)
             throws InternalException, NullPointerException;
 }

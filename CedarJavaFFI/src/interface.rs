@@ -491,6 +491,76 @@ fn get_resources_for_actions_from_cedar_schema_internal<'a>(
     }
 }
 
+#[jni_fn("com.cedarpolicy.model.schema.Schema")]
+pub fn getAncestorsJni<'a>(
+    mut env: JNIEnv<'a>,
+    _: JClass,
+    schema_jstr: JString<'a>,
+    etype_jobj: JObject<'a>,
+) -> jvalue {
+    match get_ancestors_internal(&mut env, schema_jstr, etype_jobj) {
+        Ok(v) => v.as_jni(),
+        Err(e) => jni_failed(&mut env, e.as_ref()),
+    }
+}
+
+fn get_ancestors_internal<'a>(
+    env: &mut JNIEnv<'a>,
+    schema_jstr: JString<'a>,
+    etype_jobj: JObject<'a>,
+) -> Result<JValueOwned<'a>> {
+    if etype_jobj.is_null() || schema_jstr.is_null() {
+        raise_npe(env)
+    } else {
+        let schema = get_schema_from_cedar_schema_str(env, schema_jstr)?;
+        let etype = JEntityTypeName::cast(env, etype_jobj)?.get_rust_repr();
+        let ancestors: Vec<&EntityTypeName> = match schema.ancestors(&etype) {
+            Some(ancestors) => ancestors.collect(),
+            None => {
+                return Ok(JValueGen::Object(
+                    List::<JEntityTypeName>::new(env)?.object(),
+                ))
+            }
+        };
+        get_entity_type_names(env, ancestors)
+    }
+}
+
+#[jni_fn("com.cedarpolicy.model.schema.Schema")]
+pub fn getAncestorsJsonJni<'a>(
+    mut env: JNIEnv<'a>,
+    _: JClass,
+    schema_jstr: JString<'a>,
+    etype_jobj: JObject<'a>,
+) -> jvalue {
+    match get_ancestors_json_internal(&mut env, schema_jstr, etype_jobj) {
+        Ok(v) => v.as_jni(),
+        Err(e) => jni_failed(&mut env, e.as_ref()),
+    }
+}
+
+fn get_ancestors_json_internal<'a>(
+    env: &mut JNIEnv<'a>,
+    schema_jstr: JString<'a>,
+    etype_jobj: JObject<'a>,
+) -> Result<JValueOwned<'a>> {
+    if etype_jobj.is_null() || schema_jstr.is_null() {
+        raise_npe(env)
+    } else {
+        let schema = get_schema_from_cedar_schema_json(env, schema_jstr)?;
+        let etype = JEntityTypeName::cast(env, etype_jobj)?.get_rust_repr();
+        let ancestors: Vec<&EntityTypeName> = match schema.ancestors(&etype) {
+            Some(ancestors) => ancestors.collect(),
+            None => {
+                return Ok(JValueGen::Object(
+                    List::<JEntityTypeName>::new(env)?.object(),
+                ))
+            }
+        };
+        get_entity_type_names(env, ancestors)
+    }
+}
+
 /// Public string-based JSON interface to get a Schema's Entity Types
 #[jni_fn("com.cedarpolicy.model.schema.Schema")]
 pub fn getSchemaEntityTypesJsonJni<'a>(
