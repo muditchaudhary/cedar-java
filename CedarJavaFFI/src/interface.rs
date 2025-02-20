@@ -491,6 +491,7 @@ fn get_resources_for_actions_from_cedar_schema_internal<'a>(
     }
 }
 
+/// Public string-based Cedar Schema interface to get EntityTypeName's ancestors using a Schema in Cedar format
 #[jni_fn("com.cedarpolicy.model.schema.Schema")]
 pub fn getAncestorsJni<'a>(
     mut env: JNIEnv<'a>,
@@ -509,7 +510,7 @@ fn get_ancestors_internal<'a>(
     schema_jstr: JString<'a>,
     etype_jobj: JObject<'a>,
 ) -> Result<JValueOwned<'a>> {
-    if etype_jobj.is_null() || schema_jstr.is_null() {
+    if etype_jobj.is_null() {
         raise_npe(env)
     } else {
         let schema = get_schema_from_cedar_schema_str(env, schema_jstr)?;
@@ -526,6 +527,7 @@ fn get_ancestors_internal<'a>(
     }
 }
 
+/// Public string-based Cedar Schema interface to get EntityTypeName's ancestors using a Schema in JSON format
 #[jni_fn("com.cedarpolicy.model.schema.Schema")]
 pub fn getAncestorsJsonJni<'a>(
     mut env: JNIEnv<'a>,
@@ -544,7 +546,7 @@ fn get_ancestors_json_internal<'a>(
     schema_jstr: JString<'a>,
     etype_jobj: JObject<'a>,
 ) -> Result<JValueOwned<'a>> {
-    if etype_jobj.is_null() || schema_jstr.is_null() {
+    if etype_jobj.is_null() {
         raise_npe(env)
     } else {
         let schema = get_schema_from_cedar_schema_json(env, schema_jstr)?;

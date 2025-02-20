@@ -139,10 +139,13 @@ public final class Schema {
      *
      * @return the Principals for a specific Action defined by the Schema
      * @throws InternalException    if parsing fails.
-     * @throws NullPointerException if the input text is null
+     * @throws NullPointerException if the schema text or action is null
      */
     public Iterable<EntityTypeName> getPrincipalsForAction(EntityUID action)
             throws InternalException, NullPointerException {
+        if (action == null) {
+            throw new NullPointerException("Action cannot be null");
+        }
         if (type == JsonOrCedar.Json) {
             return getSchemaPrincipalsForActionJsonJni(schemaJson.get().toString(), action);
         } else {
@@ -155,10 +158,13 @@ public final class Schema {
      *
      * @return the Resources for a specific Action defined by the Schema
      * @throws InternalException    if parsing fails.
-     * @throws NullPointerException if the input text is null
+     * @throws NullPointerException if the schema text or action is null
      */
     public Iterable<EntityTypeName> getResourcesForAction(EntityUID action)
             throws InternalException, NullPointerException {
+        if (action == null) {
+            throw new NullPointerException("Action cannot be null");
+        }
         if (type == JsonOrCedar.Json) {
             return getSchemaResourcesForActionJsonJni(schemaJson.get().toString(), action);
         } else {
@@ -171,7 +177,7 @@ public final class Schema {
      *
      * @return the Entity Types defined by the Schema
      * @throws InternalException    if parsing fails.
-     * @throws NullPointerException if the input text is null
+     * @throws NullPointerException if the schema text is null
      */
     public Iterable<EntityTypeName> getEntityTypes() throws InternalException, NullPointerException {
         if (type == JsonOrCedar.Json) {
@@ -186,7 +192,7 @@ public final class Schema {
      *
      * @return the Actions defined by the Schema
      * @throws InternalException    if parsing fails.
-     * @throws NullPointerException if the input text is null
+     * @throws NullPointerException if the schema text is null
      */
     public Iterable<EntityUID> getActions() throws InternalException, NullPointerException {
         if (type == JsonOrCedar.Json) {
@@ -201,7 +207,7 @@ public final class Schema {
      *
      * @return the Action Groups defined by the Schema
      * @throws InternalException    if parsing fails.
-     * @throws NullPointerException if the input text is null
+     * @throws NullPointerException if the schema text is null
      */
     public Iterable<EntityUID> getActionGroups() throws InternalException, NullPointerException {
         if (type == JsonOrCedar.Json) {
@@ -217,10 +223,13 @@ public final class Schema {
      * @param entityTypeName The entity type name to get ancestors for
      * @return The ancestors (parent entity types) for the specified entity type
      * @throws InternalException    if parsing fails
-     * @throws NullPointerException if the entity type name is null
+     * @throws NullPointerException if the schema text or entity type name is null
      */
     public Iterable<EntityTypeName> getAncestors(EntityTypeName entityTypeName)
             throws InternalException, NullPointerException {
+        if (entityTypeName == null) {
+            throw new NullPointerException("EntityTypeName cannot be null");
+        }
         if (type == JsonOrCedar.Json) {
             return getAncestorsJsonJni(schemaJson.get().toString(), entityTypeName);
         } else {
