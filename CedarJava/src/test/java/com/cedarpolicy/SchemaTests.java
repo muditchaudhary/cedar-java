@@ -17,6 +17,8 @@
 package com.cedarpolicy;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
 
 import com.cedarpolicy.model.schema.Schema;
@@ -800,5 +802,98 @@ public class SchemaTests {
         assertEquals(2, actionGroups.size());
         assertEquals(1, Collections.frequency(actionGroups, expectedActionSpecificGroup));
         assertEquals(1, Collections.frequency(actionGroups, expectedActionAllActionGroup));
+    }
+
+    @Test
+    public void getAncestorsSchemaTests() {
+        Schema ancestorsSchema = new Schema("""
+                entity User = {
+                    name: String,
+                    age?: Long,
+                };
+                entity Admin = {
+                    id: String,
+                };
+                entity Photo in Album;
+                entity Album in Collection;
+                entity Collection;
+                """);
+
+        Iterable<EntityTypeName> ancestorsIterable = assertDoesNotThrow(() -> {
+            return ancestorsSchema.getAncestors(EntityTypeName.parse("Photo").get());
+        });
+        Set<EntityTypeName> actualAncestorsSet = new HashSet<>();
+        ancestorsIterable.forEach(actualAncestorsSet::add);
+
+        EntityTypeName albumEtype = EntityTypeName.parse("Album").get();
+        EntityTypeName collectionsEtype = EntityTypeName.parse("Collection").get();
+        Set<EntityTypeName> expectedAncestorsSet = new HashSet<>();
+        expectedAncestorsSet.add(albumEtype);
+        expectedAncestorsSet.add(collectionsEtype);
+
+        assertEquals(expectedAncestorsSet, actualAncestorsSet);
+
+        Iterable<EntityTypeName> noAncestorsIterable = assertDoesNotThrow(() -> {
+            return ancestorsSchema.getAncestors(EntityTypeName.parse("User").get());
+        });
+        Set<EntityTypeName> actualNoAncestorsSet = new HashSet<>();
+        noAncestorsIterable.forEach(actualNoAncestorsSet::add);
+
+        assertEquals(0, actualNoAncestorsSet.size());
+    }
+
+    @Test
+    public void getAncestorsSchemaJsonTests() {
+        Schema ancestorsSchema = assertDoesNotThrow(() -> {
+            return Schema.parse(JsonOrCedar.Json, """
+                {
+                    "": {
+                        "entityTypes": {
+                            "Admin": {
+                                "shape": {
+                                    "type": "Record",
+                                    "attributes": {
+                                        "id": {
+                                            "type": "String",
+                                            "required": true
+                                        }
+                                    }
+                                }
+                            },
+                            "Photo": {
+                                "memberOfTypes": [ "Album" ]
+                            },
+                            "Album": {
+                                "memberOfTypes": ["Collection"]
+                            },
+                            "Collection":{}
+                        },
+                        "actions": {}
+                    }
+                }
+                """);
+        });
+
+        Iterable<EntityTypeName> ancestorsIterable = assertDoesNotThrow(() -> {
+            return ancestorsSchema.getAncestors(EntityTypeName.parse("Photo").get());
+        });
+        Set<EntityTypeName> actualAncestorsSet = new HashSet<>();
+        ancestorsIterable.forEach(actualAncestorsSet::add);
+
+        EntityTypeName albumEtype = EntityTypeName.parse("Album").get();
+        EntityTypeName collectionsEtype = EntityTypeName.parse("Collection").get();
+        Set<EntityTypeName> expectedAncestorsSet = new HashSet<>();
+        expectedAncestorsSet.add(albumEtype);
+        expectedAncestorsSet.add(collectionsEtype);
+
+        assertEquals(expectedAncestorsSet, actualAncestorsSet);
+
+        Iterable<EntityTypeName> noAncestorsIterable = assertDoesNotThrow(() -> {
+            return ancestorsSchema.getAncestors(EntityTypeName.parse("User").get());
+        });
+        Set<EntityTypeName> actualNoAncestorsSet = new HashSet<>();
+        noAncestorsIterable.forEach(actualNoAncestorsSet::add);
+
+        assertEquals(0, actualNoAncestorsSet.size());
     }
 }
